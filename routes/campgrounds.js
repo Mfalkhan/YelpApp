@@ -19,14 +19,14 @@ router.get("/",function(req,res){
   // CREATE ROUTE adds a new campground to the database
   
 router.post("/",isLoggedIn,function(req,res){
-     var name = req.body.name;
-     var image = req.body.image;
-     var description = req.body.description;
-     var author = {
+     const name = req.body.name;
+     const image = req.body.image;
+     const description = req.body.description;
+     const author = {
         username : req.user.username,
         id : req.user._id
      };
-     var newCampground = {name:name,image:image,description:description,author : author};
+     const newCampground = {name:name,image:image,description:description,author : author};
      
      Campground.create(newCampground,(err,campground) => {
         if(err){
@@ -59,16 +59,11 @@ router.post("/",isLoggedIn,function(req,res){
   
 // EDIT ROUTE
 
-router.get("/:id/edit",(req,res) =>{
+router.get("/:id/edit",editCampgroundOwnership,(req,res) =>{
     Campground.findById(req.params.id,(err,foundCampground) =>{
-        if(err){
-            console.log(err);
-            res.redirect("/campgrounds");
-        }else{
             res.render("campgrounds/edit",{campground : foundCampground});      
-        }
-    })
 })
+});
 
 
 // UPDATE ROUTE
@@ -104,5 +99,23 @@ router.delete("/:id",(req,res) =>{
     res.redirect("/login");
   }
 
+  function editCampgroundOwnership(req,res,next){
+    if(req.isAuthenticated()){
+      Campground.findById(req.params.id,(err,foundCampground) =>{
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }else{
+            if (foundCampground.author.id.equals(req.user._id)){
+                next();
+            }else{
+                res.redirect("back");
+            }
+        }
+    })
+    }else{
+      res.redirect("back");
+    }
+  }
 
   module.exports = router;

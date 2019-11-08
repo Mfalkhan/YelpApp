@@ -1,8 +1,8 @@
-var express = require("express");
-var app = express();
-var request = require("request");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
+const express = require("express");
+const app = express();
+const request = require("request");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const Campground = require("./models/campgrounds");
 const seedDB = require("./seeds");
 const Comment = require("./models/comments");
@@ -68,7 +68,7 @@ app.set("view engine","ejs");
 
 // seedDB();
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port,function(){
   console.log("Server Has Started!");
 })
