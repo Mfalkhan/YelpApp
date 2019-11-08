@@ -36,27 +36,27 @@ function seedDB(){
             }
             console.log("campground removed");
 
-            data.forEach(seed=>{
-                Campground.create(seed,(err,campground)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                            console.log("added a campground");
-                        }
-                        // create a comment
+            // data.forEach(seed=>{
+            //     Campground.create(seed,(err,campground)=>{
+            //             if(err){
+            //                 console.log(err);
+            //             }else{
+            //                 console.log("added a campground");
+            //             }
+            //             // create a comment
 
-                        Comment.create({
+            //             Comment.create({
 
-                                text :"not a good thing",
-                                author:"farhan khan"
+            //                     text :"not a good thing",
+            //                     author:"farhan khan"
 
-                        },(err,comment)=>{
-                            campground.comments.push(comment);
-                            campground.save();
-                            console.log("created new comment");
-                        });
-                });
-            });
+            //             },(err,comment)=>{
+            //                 campground.comments.push(comment);
+            //                 campground.save();
+            //                 console.log("created new comment");
+            //             });
+            //     });
+            // });
         });
     }
 

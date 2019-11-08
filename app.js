@@ -12,6 +12,7 @@ const User = require("./models/user");
 const commentRoutes = require("./routes/comments");
 const campgroundsRoutes = require("./routes/campgrounds");
 const indexRoutes = require("./routes/index");
+const methodOveride = require("method-override");
 
 
 // avoiding the mongo DB error
@@ -31,6 +32,8 @@ app.use(require("express-session")({
   saveUninitialized:false
 }));
 
+
+app.use(methodOveride("_method"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req,res,next){
@@ -63,7 +66,7 @@ passport.deserializeUser(User.deserializeUser());
 app.set("view engine","ejs");
 
 
-seedDB();
+// seedDB();
 
 var port = process.env.PORT || 3000;
 app.listen(port,function(){

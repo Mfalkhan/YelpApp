@@ -9,3 +9,7 @@
 h4{
     font-weight: bold;
 }
+
+.delete{
+    display: inline;
+}

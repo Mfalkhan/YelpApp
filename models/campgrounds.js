@@ -10,7 +10,16 @@ const CampgroundSchema = new mongoose.Schema({
             type : mongoose.Schema.Types.ObjectId,
             ref :"Comment"
         }
-    ]
+    ],
+
+    author : {
+        id : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "User"
+        },
+        username : String
+    }
+
   });
 
   const campground = mongoose.model("Campground",CampgroundSchema);
